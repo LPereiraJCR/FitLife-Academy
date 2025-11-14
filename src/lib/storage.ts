@@ -1,12 +1,14 @@
 // Gerenciamento de Local Storage
 
-import { UserProfile, WorkoutLog, Challenge, MealPlan } from './types';
+import { UserProfile, WorkoutLog, Challenge, MealPlan, MealCompletion, CustomMeal } from './types';
 
 const STORAGE_KEYS = {
   USER_PROFILE: 'fitapp_user_profile',
   WORKOUT_LOGS: 'fitapp_workout_logs',
   CHALLENGES: 'fitapp_challenges',
   MEAL_PLAN: 'fitapp_meal_plan',
+  MEAL_COMPLETIONS: 'fitapp_meal_completions',
+  CUSTOM_MEALS: 'fitapp_custom_meals',
 } as const;
 
 // User Profile
@@ -95,6 +97,294 @@ export const getMealPlan = (): MealPlan | null => {
     return data ? JSON.parse(data) : null;
   }
   return null;
+};
+
+// Meal Completions
+export const saveMealCompletion = (completion: MealCompletion): void => {
+  if (typeof window !== 'undefined') {
+    const completions = getMealCompletions();
+    const existingIndex = completions.findIndex(
+      c => c.date === completion.date && 
+           c.day === completion.day && 
+           c.mealType === completion.mealType
+    );
+    
+    if (existingIndex >= 0) {
+      completions[existingIndex] = completion;
+    } else {
+      completions.push(completion);
+    }
+    
+    localStorage.setItem(STORAGE_KEYS.MEAL_COMPLETIONS, JSON.stringify(completions));
+  }
+};
+
+export const getMealCompletions = (): MealCompletion[] => {
+  if (typeof window !== 'undefined') {
+    const data = localStorage.getItem(STORAGE_KEYS.MEAL_COMPLETIONS);
+    return data ? JSON.parse(data) : [];
+  }
+  return [];
+};
+
+export const getMealCompletionStatus = (date: string, day: string, mealType: string): boolean => {
+  const completions = getMealCompletions();
+  const completion = completions.find(
+    c => c.date === date && c.day === day && c.mealType === mealType
+  );
+  return completion?.completed || false;
+};
+
+// Custom Meals
+export const saveCustomMeal = (meal: CustomMeal): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    meals.push(meal);
+    localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(meals));
+  }
+};
+
+export const getCustomMeals = (): CustomMeal[] => {
+  if (typeof window !== 'undefined') {
+    const data = localStorage.getItem(STORAGE_KEYS.CUSTOM_MEALS);
+    return data ? JSON.parse(data) : [];
+  }
+  return [];
+};
+
+export const deleteCustomMeal = (mealId: string): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    const filtered = meals.filter(m => m.id !== mealId);
+    localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(filtered));
+  }
+};
+
+export const updateCustomMeal = (meal: CustomMeal): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    const index = meals.findIndex(m => m.id === meal.id);
+    if (index >= 0) {
+      meals[index] = meal;
+      localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(meals));
+    }
+  }
+};
+
+// Custom Meals
+export const saveCustomMeal = (meal: CustomMeal): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    meals.push(meal);
+    localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(meals));
+  }
+};
+
+export const getCustomMeals = (): CustomMeal[] => {
+  if (typeof window !== 'undefined') {
+    const data = localStorage.getItem(STORAGE_KEYS.CUSTOM_MEALS);
+    return data ? JSON.parse(data) : [];
+  }
+  return [];
+};
+
+export const deleteCustomMeal = (mealId: string): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    const filtered = meals.filter(m => m.id !== mealId);
+    localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(filtered));
+  }
+};
+
+export const updateCustomMeal = (meal: CustomMeal): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    const index = meals.findIndex(m => m.id === meal.id);
+    if (index >= 0) {
+      meals[index] = meal;
+      localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(meals));
+    }
+  }
+};
+
+// Custom Meals
+export const saveCustomMeal = (meal: CustomMeal): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    meals.push(meal);
+    localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(meals));
+  }
+};
+
+export const getCustomMeals = (): CustomMeal[] => {
+  if (typeof window !== 'undefined') {
+    const data = localStorage.getItem(STORAGE_KEYS.CUSTOM_MEALS);
+    return data ? JSON.parse(data) : [];
+  }
+  return [];
+};
+
+export const deleteCustomMeal = (mealId: string): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    const filtered = meals.filter(m => m.id !== mealId);
+    localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(filtered));
+  }
+};
+
+export const updateCustomMeal = (meal: CustomMeal): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    const index = meals.findIndex(m => m.id === meal.id);
+    if (index >= 0) {
+      meals[index] = meal;
+      localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(meals));
+    }
+  }
+};
+
+// Custom Meals
+export const saveCustomMeal = (meal: CustomMeal): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    meals.push(meal);
+    localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(meals));
+  }
+};
+
+export const getCustomMeals = (): CustomMeal[] => {
+  if (typeof window !== 'undefined') {
+    const data = localStorage.getItem(STORAGE_KEYS.CUSTOM_MEALS);
+    return data ? JSON.parse(data) : [];
+  }
+  return [];
+};
+
+export const deleteCustomMeal = (mealId: string): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    const filtered = meals.filter(m => m.id !== mealId);
+    localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(filtered));
+  }
+};
+
+export const updateCustomMeal = (meal: CustomMeal): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    const index = meals.findIndex(m => m.id === meal.id);
+    if (index >= 0) {
+      meals[index] = meal;
+      localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(meals));
+    }
+  }
+};
+
+// Custom Meals
+export const saveCustomMeal = (meal: CustomMeal): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    meals.push(meal);
+    localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(meals));
+  }
+};
+
+export const getCustomMeals = (): CustomMeal[] => {
+  if (typeof window !== 'undefined') {
+    const data = localStorage.getItem(STORAGE_KEYS.CUSTOM_MEALS);
+    return data ? JSON.parse(data) : [];
+  }
+  return [];
+};
+
+export const deleteCustomMeal = (mealId: string): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    const filtered = meals.filter(m => m.id !== mealId);
+    localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(filtered));
+  }
+};
+
+export const updateCustomMeal = (meal: CustomMeal): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    const index = meals.findIndex(m => m.id === meal.id);
+    if (index >= 0) {
+      meals[index] = meal;
+      localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(meals));
+    }
+  }
+};
+
+// Custom Meals
+export const saveCustomMeal = (meal: CustomMeal): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    meals.push(meal);
+    localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(meals));
+  }
+};
+
+export const getCustomMeals = (): CustomMeal[] => {
+  if (typeof window !== 'undefined') {
+    const data = localStorage.getItem(STORAGE_KEYS.CUSTOM_MEALS);
+    return data ? JSON.parse(data) : [];
+  }
+  return [];
+};
+
+export const deleteCustomMeal = (mealId: string): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    const filtered = meals.filter(m => m.id !== mealId);
+    localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(filtered));
+  }
+};
+
+export const updateCustomMeal = (meal: CustomMeal): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    const index = meals.findIndex(m => m.id === meal.id);
+    if (index >= 0) {
+      meals[index] = meal;
+      localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(meals));
+    }
+  }
+};
+
+// Custom Meals
+export const saveCustomMeal = (meal: CustomMeal): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    meals.push(meal);
+    localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(meals));
+  }
+};
+
+export const getCustomMeals = (): CustomMeal[] => {
+  if (typeof window !== 'undefined') {
+    const data = localStorage.getItem(STORAGE_KEYS.CUSTOM_MEALS);
+    return data ? JSON.parse(data) : [];
+  }
+  return [];
+};
+
+export const deleteCustomMeal = (mealId: string): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    const filtered = meals.filter(m => m.id !== mealId);
+    localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(filtered));
+  }
+};
+
+export const updateCustomMeal = (meal: CustomMeal): void => {
+  if (typeof window !== 'undefined') {
+    const meals = getCustomMeals();
+    const index = meals.findIndex(m => m.id === meal.id);
+    if (index >= 0) {
+      meals[index] = meal;
+      localStorage.setItem(STORAGE_KEYS.CUSTOM_MEALS, JSON.stringify(meals));
+    }
+  }
 };
 
 // Clear all data

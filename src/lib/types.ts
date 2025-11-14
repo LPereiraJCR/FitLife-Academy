@@ -4,6 +4,8 @@ export type Goal = 'lose_weight' | 'gain_muscle' | 'maintain' | 'improve_health'
 export type FitnessLevel = 'beginner' | 'intermediate' | 'advanced';
 export type WorkoutFrequency = '2-3' | '4-5' | '6-7';
 export type DietPreference = 'balanced' | 'low_carb' | 'high_protein' | 'vegetarian' | 'vegan';
+export type GymType = 'complete' | 'condominium' | 'outdoor';
+export type BudgetType = 'economica' | 'premium';
 
 export interface UserProfile {
   id: string;
@@ -15,6 +17,7 @@ export interface UserProfile {
   fitnessLevel: FitnessLevel;
   workoutFrequency: WorkoutFrequency;
   dietPreference: DietPreference;
+  gymType: GymType;
   createdAt: string;
   hasCompletedQuiz: boolean;
   subscriptionPlan?: 'free' | 'monthly' | 'quarterly' | 'annual';
@@ -76,6 +79,270 @@ export interface Meal {
   imageUrl?: string;
   goal: Goal[];
   dietPreference: DietPreference[];
+}
+
+export interface WeeklyMealOption {
+  id: string;
+  name: string;
+  description: string;
+  budgetType: BudgetType;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+  ingredients: string[];
+  estimatedCost: string;
+  image: string;
+}
+
+export interface DailyMeal {
+  breakfast: WeeklyMealOption[];
+  preworkout: WeeklyMealOption[];
+  lunch: WeeklyMealOption[];
+  afternoonSnack: WeeklyMealOption[];
+  dinner: WeeklyMealOption[];
+}
+
+export interface WeeklyMealPlan {
+  [key: string]: DailyMeal; // 'monday', 'tuesday', etc.
+}
+
+export interface MealCompletion {
+  date: string; // formato: YYYY-MM-DD
+  day: string; // 'monday', 'tuesday', etc.
+  mealType: 'breakfast' | 'preworkout' | 'lunch' | 'afternoonSnack' | 'dinner';
+  mealId: string;
+  completed: boolean;
+}
+
+export interface CustomMealFood {
+  foodId: string;
+  foodName: string;
+  quantity: number; // em gramas
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+  price: number;
+}
+
+export interface CustomMeal {
+  id: string;
+  name: string;
+  foods: CustomMealFood[];
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFats: number;
+  totalPrice: number;
+  createdAt: string;
+}
+
+export interface CustomMealFood {
+  foodId: string;
+  foodName: string;
+  quantity: number; // em gramas
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+  price: number;
+}
+
+export interface CustomMeal {
+  id: string;
+  name: string;
+  foods: CustomMealFood[];
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFats: number;
+  totalPrice: number;
+  createdAt: string;
+}
+
+export interface CustomMealFood {
+  foodId: string;
+  foodName: string;
+  quantity: number; // em gramas
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+  price: number;
+}
+
+export interface CustomMeal {
+  id: string;
+  name: string;
+  foods: CustomMealFood[];
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFats: number;
+  totalPrice: number;
+  createdAt: string;
+}
+
+export interface CustomMealFood {
+  foodId: string;
+  foodName: string;
+  quantity: number; // em gramas
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+  price: number;
+}
+
+export interface CustomMeal {
+  id: string;
+  name: string;
+  foods: CustomMealFood[];
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFats: number;
+  totalPrice: number;
+  createdAt: string;
+}
+
+export interface CustomMealFood {
+  foodId: string;
+  foodName: string;
+  quantity: number; // em gramas
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+  price: number;
+}
+
+export interface CustomMeal {
+  id: string;
+  name: string;
+  foods: CustomMealFood[];
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFats: number;
+  totalPrice: number;
+  createdAt: string;
+}
+
+export interface CustomMealFood {
+  foodId: string;
+  foodName: string;
+  quantity: number; // em gramas
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+  price: number;
+}
+
+export interface CustomMeal {
+  id: string;
+  name: string;
+  foods: CustomMealFood[];
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFats: number;
+  totalPrice: number;
+  createdAt: string;
+}
+
+export interface CustomMealFood {
+  foodId: string;
+  foodName: string;
+  quantity: number; // em gramas
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+  price: number;
+}
+
+export interface CustomMeal {
+  id: string;
+  name: string;
+  foods: CustomMealFood[];
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFats: number;
+  totalPrice: number;
+  createdAt: string;
+}
+
+export interface CustomMealFood {
+  foodId: string;
+  foodName: string;
+  quantity: number; // em gramas
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+  price: number;
+}
+
+export interface CustomMeal {
+  id: string;
+  name: string;
+  foods: CustomMealFood[];
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFats: number;
+  totalPrice: number;
+  createdAt: string;
+}
+
+export interface CustomMealFood {
+  foodId: string;
+  foodName: string;
+  quantity: number; // em gramas
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+  price: number;
+}
+
+export interface CustomMeal {
+  id: string;
+  name: string;
+  foods: CustomMealFood[];
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFats: number;
+  totalPrice: number;
+  createdAt: string;
+}
+
+export interface CustomMealFood {
+  foodId: string;
+  foodName: string;
+  quantity: number; // em gramas
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+  price: number;
+}
+
+export interface CustomMeal {
+  id: string;
+  name: string;
+  foods: CustomMealFood[];
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFats: number;
+  totalPrice: number;
+  createdAt: string;
 }
 
 export interface MealPlan {

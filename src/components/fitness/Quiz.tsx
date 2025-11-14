@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { UserProfile, Goal, FitnessLevel, WorkoutFrequency, DietPreference } from '@/lib/types';
+import { UserProfile, Goal, FitnessLevel, WorkoutFrequency, DietPreference, GymType } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Dumbbell, Target, Activity, Utensils, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Dumbbell, Target, Activity, Utensils, ArrowRight, ArrowLeft, Building2 } from 'lucide-react';
 
 interface QuizProps {
   onComplete: (profile: UserProfile) => void;
@@ -22,11 +22,12 @@ export default function Quiz({ onComplete }: QuizProps) {
     goal: '' as Goal,
     fitnessLevel: '' as FitnessLevel,
     workoutFrequency: '' as WorkoutFrequency,
+    gymType: '' as GymType,
     dietPreference: '' as DietPreference,
   });
 
   const handleNext = () => {
-    if (step < 4) setStep(step + 1);
+    if (step < 5) setStep(step + 1);
   };
 
   const handleBack = () => {
@@ -43,6 +44,7 @@ export default function Quiz({ onComplete }: QuizProps) {
       goal: formData.goal,
       fitnessLevel: formData.fitnessLevel,
       workoutFrequency: formData.workoutFrequency,
+      gymType: formData.gymType,
       dietPreference: formData.dietPreference,
       createdAt: new Date().toISOString(),
       hasCompletedQuiz: true,
@@ -62,6 +64,8 @@ export default function Quiz({ onComplete }: QuizProps) {
       case 3:
         return formData.workoutFrequency;
       case 4:
+        return formData.gymType;
+      case 5:
         return formData.dietPreference;
       default:
         return false;
@@ -83,12 +87,12 @@ export default function Quiz({ onComplete }: QuizProps) {
           <div className="mt-6">
             <div className="flex justify-between text-sm mb-2">
               <span>Progresso</span>
-              <span>{Math.round(((step + 1) / 5) * 100)}%</span>
+              <span>{Math.round(((step + 1) / 6) * 100)}%</span>
             </div>
             <div className="h-2 bg-orange-300 rounded-full overflow-hidden">
               <div 
                 className="h-full bg-white transition-all duration-300"
-                style={{ width: `${((step + 1) / 5) * 100}%` }}
+                style={{ width: `${((step + 1) / 6) * 100}%` }}
               />
             </div>
           </div>
@@ -265,8 +269,56 @@ export default function Quiz({ onComplete }: QuizProps) {
             </div>
           )}
 
-          {/* Step 4: Preferência Alimentar */}
+          {/* Step 4: Tipo de Academia */}
           {step === 4 && (
+            <div className="space-y-6 animate-in fade-in duration-300">
+              <div className="text-center mb-8">
+                <Building2 className="w-16 h-16 mx-auto text-orange-600 mb-4" />
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">Tipo de Academia</h2>
+                <p className="text-gray-600">Onde você vai treinar?</p>
+              </div>
+
+              <RadioGroup value={formData.gymType} onValueChange={(value) => setFormData({ ...formData, gymType: value as GymType })}>
+                <div className="space-y-3">
+                  {[
+                    { 
+                      value: 'complete', 
+                      label: 'Academia Completa', 
+                      desc: 'Equipamentos completos e máquinas variadas' 
+                    },
+                    { 
+                      value: 'condominium', 
+                      label: 'Academia de Condomínio', 
+                      desc: 'Equipamentos básicos e limitados' 
+                    },
+                    { 
+                      value: 'outdoor', 
+                      label: 'Praças e Peso Corporal', 
+                      desc: 'Treino ao ar livre sem equipamentos' 
+                    },
+                  ].map((option) => (
+                    <label
+                      key={option.value}
+                      className={`flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all ${
+                        formData.gymType === option.value
+                          ? 'border-orange-600 bg-orange-50'
+                          : 'border-gray-200 hover:border-orange-300'
+                      }`}
+                    >
+                      <RadioGroupItem value={option.value} id={option.value} className="mr-4" />
+                      <div>
+                        <div className="font-semibold text-gray-800">{option.label}</div>
+                        <div className="text-sm text-gray-600">{option.desc}</div>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              </RadioGroup>
+            </div>
+          )}
+
+          {/* Step 5: Preferência Alimentar */}
+          {step === 5 && (
             <div className="space-y-6 animate-in fade-in duration-300">
               <div className="text-center mb-8">
                 <Utensils className="w-16 h-16 mx-auto text-orange-600 mb-4" />
@@ -316,7 +368,7 @@ export default function Quiz({ onComplete }: QuizProps) {
               </Button>
             )}
             
-            {step < 4 ? (
+            {step < 5 ? (
               <Button
                 onClick={handleNext}
                 disabled={!isStepValid()}
